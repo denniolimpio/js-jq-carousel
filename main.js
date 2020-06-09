@@ -1,69 +1,104 @@
 // esercizio
+// creare uno slider di immagini e personalizzare l'html
 
-// creare uno slider di immagini
-
-
-
+//apro document
 $(document).ready (
 
   function() {
 
-// cliccando sul tasto freccia destra genero un evento
+    // cliccando sul tasto freccia destra genero un evento
 
-// slider img successiva
-$(".next").click (
+    // slider img successiva
+    $(".next").click (
 
-  function() {
-    immagineSuccessiva();
+      function() {
+        immagineSuccessiva();
 
+      });
 
-  });
+      // cliccando sul tasto freccia sinistra genero un evento
 
+      // slider img precedente
+      $(".prev").click (
 
-
-
-// slider img precedente
-
-  $(".prev").click (
-
-    function() {
-      // immaginePrecedente();
+        function() {
+          immaginePrecedente();
 
 
-    });
+        });
 
 
-  });
+      });
+
+      //funzioni
+
+      //ho bisogno di una funzione che, cliccando sulla freccia dx, mi permetta di passare dall'immagine corrente a quella successiva
+      // questa stessa funzione deve evidenziare il cerchietto dell'immagine che è visibile in quel momento.
 
 
+      // #funzione1
+      function immagineSuccessiva() {
 
 
+        // definisco la mia variabile riferita all'immagine che al momento risulta selezionata,visibile
+        var immagineSelezionata = $(" .images img.active ");
+        var cerchioAttivo = $( ".nav i.active");
 
-//funzioni
-
-//ho bisogno di una funzione che, cliccando sulla freccia dx, mi permetta di passare dall'immagine corrente a quella successiva
-// questa stessa funzione deve evidenziare il cerchietto dell'immagine che è visibile in quel momento.
-
-
-function immagineSuccessiva() {
-
-
-// definisco la mia variabile riferita all'immagine che al momento risulta selezionata,visibile
-  var immagineSelezionata = $(" .images img.active ");
-
-// rimuovo la classe " active" all'immagine che al momento è visibile e(..)
-  immagineSelezionata.removeClass("active");
+        // rimuovo la classe " active" all'elemento che al momento è visibile e(..)
+        immagineSelezionata.removeClass("active");
+        cerchioAttivo.removeClass("active");
 
 
-  // aggiungo la classe " active" all'immagine successiva.
+        //Se immagineSelezionata e cerchioAttivo ha classe "last", allora aggiungo al'elemento con classe "first" , la classe "active".
+        //In questo modo dopo l'ultima immagine riappare la prima.
 
-immagineSelezionata.next().addClass("active");
+        if(immagineSelezionata.hasClass("last")){
+          $(".images img.first").addClass("active");
+          $(".nav i.first").addClass("active");
+
+        } else {
+          // aggiungo la classe " active" all'immagine successiva.
+
+          immagineSelezionata.next().addClass("active");
+          cerchioAttivo.next().addClass("active");
+
+        }
+
+      };
 
 
+      //ho bisogno di una funzione che, cliccando sulla freccia sx, mi permetta di passare dall'immagine corrente a quella precedente
+      // questa stessa funzione deve evidenziare il cerchietto dell'immagine che è visibile in quel momento.
+
+      // #funzione 2
 
 
-};
+      function immaginePrecedente() {
+
+        // definisco la mia variabile riferita all'elemento che al momento risulta selezionata,visibile
+
+        var immagineSelezionata = $(".images img.active");
+        var cerchioAttivo = $( ".nav i.active");
+
+        // rimuovo la classe " active" all'elemento che al momento è visibile e(..)
+        immagineSelezionata.removeClass("active");
+        cerchioAttivo.removeClass("active");
 
 
-//ho bisogno di una funzione che, cliccando sulla freccia sx, mi permetta di passare dall'immagine corrente a quella precedente
-// questa stessa funzione deve evidenziare il cerchietto dell'immagine che è visibile in quel momento.
+        //Se immagineSelezionata e cerchioAttivo  ha classe "first", allora aggiungo al'elemento con classe "last" , la classe "active"
+        //In questo modo dopo la prima immagine riappare l'ultima.
+
+
+        if(immagineSelezionata.hasClass("first")) {
+          $(".images img.last").addClass("active");
+
+          $ (".nav i.last").addClass("active");
+
+        } else {
+
+
+          immagineSelezionata.prev().addClass("active");
+          cerchioAttivo.prev().addClass("active");
+        }
+      }
+  //chiudo document
